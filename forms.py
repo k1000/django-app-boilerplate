@@ -63,10 +63,11 @@ class DestinationSearchForm(forms.Form):
         data = self.cleaned_data
         check_in = data.get("check_in")
         check_out = data.get("check_out")
-        if check_in > check_out:
-            raise forms.ValidationError(_(u"La fecha no salida no pudede ser anterior a la vuelta"))
-        if check_out - check_in > datetime.timedelta(days=31):
-            raise forms.ValidationError(_(u"La duración de la estancia no puede sewr superior a 31 días"))
+        if check_in and check_out:
+            if check_in > check_out:
+                raise forms.ValidationError(_(u"La fecha no salida no pudede ser anterior a la vuelta"))
+            if check_out - check_in > datetime.timedelta(days=31):
+                raise forms.ValidationError(_(u"La duración de la estancia no puede sewr superior a 31 días"))
         return data
             
 
