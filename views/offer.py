@@ -119,8 +119,9 @@ def destiantions_search(request):
                 request_query["nr_kids"] = len(kids_ages)
                 xml_request, xml_respond = get_destinations( request_query )
                 #update session
-                request.session[session_query] = xml_respond
-                request.session["last_query"] = session_query
+                if xml_respond:
+                    request.session[session_query] = xml_respond
+                    request.session["last_query"] = session_query
             
             bedsonline_data = parse_destination_respond( xml_respond )
             if "errors" in bedsonline_data:
